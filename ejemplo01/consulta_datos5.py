@@ -18,33 +18,6 @@ engine = create_engine(cadena_base_datos)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Obtener un listado de todos los registros 
-# de la tabla Club, que tengan al menos 
-# un jugador con el nombre que tenga incluida la cadena “Da”
-
-# para la solución se hace uso del método 
-# join aplicado a query
-
-clubs = session.query(Club).join(Jugador).\
-        filter(Jugador.nombre.like("%Da%")).all()
-print(clubs)
-print("Consulta 1 ")
-"""
-Consulta 1 
-Club: nombre=Barcelona deporte=Fútbol fundación=1920
-"""
-# for e in clubs: 
-#    print(e) 
-
-# Obtener un listado de todos los registros 
-# de la tabla Club y Jugador, que tengan al menos 
-# un jugador con el nombre que tenga incluida la cadena “Da”
-
-# para la solución se hace uso del método 
-# join aplicado a query
-# en el query se ubican las dos entidades involucradas
-# 
-
 registros = session.query(Club, Jugador).join(Jugador).\
          filter(Jugador.nombre.like("%Da%")).all()
  
@@ -67,8 +40,11 @@ for registro in registros:
 #     # posición 0 el club
 #     # posición 1 el jugador 
 #     # que cumplen con la condición
-    print(registro[0].nombre) # El club
-    print(registro[1].nombre) # El jugador
+
+    c = registro[0]  #Esto es un objeto de tipo Club
+    jug= registro[1] #Es un objeto de tipo jugador
+    print(c.nombre) # El club
+    print(jug.nombre) # El jugador
     print("------------------")
 
 
